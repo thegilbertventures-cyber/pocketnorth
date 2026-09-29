@@ -5,7 +5,7 @@ import {deviceAvailable,deviceFactorId,verifyDevice,enrollDevice} from './device
 import {createClient} from './supabase.js';
 import {config} from './config.js';
 import {freshProfile,goalLabels,planningSummary} from './planning.js';
-import {profileForm,readProfile,readCents,planCards,toolView,debtForm,vehicleForm} from './planning-ui.js';
+import {profileForm,readProfile,readCents,planCards,toolView,debtForm,vehicleForm} from './planning-ui.js?v=20260929-spending';
 import {money,esc,norm,defaults,totals,insights,prepareImport,parseCSV} from './core.js';
 const $=s=>document.querySelector(s),id=()=>crypto.randomUUID(),day=new Date().toISOString().slice(0,10);let month=day.slice(0,7),tab='home',session=null,demo=false,client=null,factor=null,authMode='signin',recovery=false,query='',filter='',categoryFilter='',accountFilter='',busy=false,loadVersion=0,lastActive=Date.now(),pendingImport=null,ai=[],data={categories:[],accounts:[],transactions:[],budgets:[],merchant_rules:[],bank_connections:[],financial_profiles:[]};
 const dbTables=Object.keys(data),baseURL=()=>config.siteUrl||location.href.split('?')[0].split('#')[0],uid=()=>session?.user.id||'demo';
