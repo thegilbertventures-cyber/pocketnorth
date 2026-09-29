@@ -39,3 +39,27 @@ test('auth gate still enforces MFA before budget data loads',()=>{
   assert.ok(app.indexOf("if(level.currentLevel!=='aal2')return showMfa()") < app.indexOf('await load();subscribe();'));
   assert.ok(app.includes('const r=await client.auth.getSession();check(r);'));
 });
+
+test('fresh-tab reset verifies an email token without a PKCE verifier',async()=>{
+  const {verifyEmailLink}=await import('../auth-callback.js');
+  const callback=readAuthCallback('https://app.pocketnorthus.com/#token_hash=test-email-proof&type=recovery');
+  let request;
+  const session={user:{id:'new-user'}};
+  const client={auth:{verifyOtp:async p=>{request=p;return {data:{session},error:null}}}};
+  assert.equal(await verifyEmailLink(client,callback),session);
+  assert.deepEqual(request,{token_hash:'test-email-proof',type:'recovery'});
+  await assert.rejects(()=>verifyEmailLink({auth:{verifyOtp:async()=>({error:{message:'expired'}})}},callback),/expired/);
+});
+
+test('reset gate shows password setup without reading private data and preserves existing MFA',async()=>{
+  const vm=await import('node:vm');
+  const app=readFileSync(new URL('../app.js',import.meta.url),'utf8');
+  const gate=app.slice(app.indexOf('async function runAuthGate()'),app.indexOf('async function showMfa()'));
+  for(const scenario of [{verified:false,aal:'aal1',expected:'password'},{verified:true,aal:'aal1',expected:'mfa'},{verified:true,aal:'aal2',expected:'password'}]) {
+    const calls=[];
+    const context=vm.createContext({emailLinkPending:false,recovery:true,session:null,sessionStorage:{getItem:()=>null,setItem(){}},check:r=>r.data,
+      client:{auth:{getSession:async()=>({data:{session:{user:{id:'new-user'}}}}),mfa:{getAuthenticatorAssuranceLevel:async()=>({data:{currentLevel:scenario.aal}}),listFactors:async()=>({data:{all:scenario.verified?[{status:'verified'}]:[]}})}}},
+      renderPasswordSetup:()=>calls.push('password'),showMfa:()=>calls.push('mfa'),load:()=>{throw Error('Must not load budget during reset');}});
+    vm.runInContext(gate,context);await vm.runInContext('runAuthGate()',context);assert.deepEqual(calls,[scenario.expected]);
+  }
+});
