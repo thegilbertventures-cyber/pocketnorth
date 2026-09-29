@@ -3,5 +3,7 @@ export const config = {
   "supabaseKey": "sb_publishable_2QjnhpZtCZTgcsZFz6joJQ_5ZiyRWUl",
   "siteUrl": "https://thegilbertventures-cyber.github.io/pocketnorth/",
   "supportEmail": "",
-  "idleMinutes": 15
+  "idleMinutes": 15,
+  "turnstileSiteKey": "0x4AAAAAAFJgyMH0Aizr6ZrW",
+  "turnstileHosts": ["app.pocketnorthus.com"]
 };

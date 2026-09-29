@@ -43,3 +43,5 @@ dialog{overflow-y:auto;overscroll-behavior:contain;max-height:calc(100dvh - 32px
 
 #bank-sync-status{display:block;max-width:260px;font-size:12px;overflow-wrap:anywhere}
 #bank-sync-status:empty{display:none}
+
+.auth-verification{margin:18px 0;min-width:0}.auth-verification small{display:block;margin-top:8px}.auth-verification .quiet{font-size:13px;padding:6px 0}#authCaptcha{min-height:65px;max-width:100%}
