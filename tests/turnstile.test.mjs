@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {captchaEnabled,createCaptcha,submitAuth} from '../turnstile.js';
+import {captchaEnabled,createCaptcha,submitAuth,loadTurnstile} from '../turnstile.js';
 
 function harness(){
   let handlers,resetCount=0,removed=0;
@@ -53,4 +53,11 @@ test('script failures remain blocked and a retry can recover',async()=>{
   const captcha=createCaptcha({enabled:true,load:async()=>{if(!attempts++)throw Error('offline');return {render:(_,o)=>{options=o;return 'id';}};}});
   await captcha.mount({},s=>status.push(s));assert.equal(status.at(-1),'offline');assert.throws(()=>captcha.getToken());
   await captcha.mount({},()=>{});options.callback('fresh');assert.equal(captcha.getToken(),'fresh');
+});
+
+test('async loader uses the supported onload callback without calling ready',async()=>{
+ const win={};let script;
+ const doc={createElement:()=>({remove(){}}),head:{append:s=>{script=s;win.turnstile={ready:()=>{throw Error('ready must not be used for async script');}};win.pocketnorthTurnstileReady();}}};
+ assert.equal(await loadTurnstile(win,doc),win.turnstile);
+ assert.match(script.src,/onload=pocketnorthTurnstileReady/);
 });

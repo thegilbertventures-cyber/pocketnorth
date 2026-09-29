@@ -1,4 +1,4 @@
-import {captchaEnabled,createCaptcha,submitAuth} from './turnstile.js';
+import {captchaEnabled,createCaptcha,submitAuth} from './turnstile.js?v=20260929-loader';
 import {createLoginSync} from './login-sync.js';
 import {scopeAccountIds,scopedTransactions,spendingSnapshot,budgetSuggestions} from './spending.js';
 import {spendingChart,budgetRecommendationCards} from './dashboard.js';

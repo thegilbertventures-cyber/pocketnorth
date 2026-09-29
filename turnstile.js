@@ -8,10 +8,10 @@ export function loadTurnstile(win=window,doc=document){
     const script=doc.createElement('script');
     const timer=setTimeout(()=>fail(),20000);
     function fail(){clearTimeout(timer);script.remove();loading=null;reject(Error('Verification could not load. Check your connection and retry.'));}
-    script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    win.pocketnorthTurnstileReady=()=>{clearTimeout(timer);if(!win.turnstile)return fail();resolve(win.turnstile);};
+    script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=pocketnorthTurnstileReady';
     script.async=true;
     script.onerror=fail;
-    script.onload=()=>{if(!win.turnstile)return fail();win.turnstile.ready(()=>{clearTimeout(timer);resolve(win.turnstile);});};
     doc.head.append(script);
   });
   return loading;
