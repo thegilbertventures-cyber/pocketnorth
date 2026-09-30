@@ -7,7 +7,7 @@ export function merchantReviewUpdates(rows,selected,choice,categories){
   if(!merchant)return [];
   return rows.filter(t=>t.id!==selected.id&&norm(t.description)===merchant&&
     Math.sign(t.amount_cents)===Math.sign(selected.amount_cents)&&
-    !t.excluded&&!t.removed&&!t.pending&&(!t.reviewed||t.kind==='unresolved')&&
+    !t.excluded&&!t.removed&&!t.pending&&
     !/duplicate/i.test(t.review_reason||'')).map(t=>{
       let category_id=choice.category_id,kind=choice.kind;
       // The gas-station threshold takes precedence, just as it does on import.
