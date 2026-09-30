@@ -45,3 +45,29 @@ dialog{overflow-y:auto;overscroll-behavior:contain;max-height:calc(100dvh - 32px
 #bank-sync-status:empty{display:none}
 
 .auth-verification{margin:18px 0;min-width:0}.auth-verification small{display:block;margin-top:8px}.auth-verification .quiet{font-size:13px;padding:6px 0}#authCaptcha{min-height:65px;max-width:100%}
+
+/* Appearance preference: account-backed, with a local startup cache. */
+:root{color-scheme:light}
+.appearance-panel{margin-bottom:20px}.appearance-panel .account-check{max-width:560px}.appearance-panel .footnote{margin-bottom:0}
+:root[data-theme=dark]{color-scheme:dark;--ink:#e5eef1;--muted:#a8bbc3;--paper:#10191f;--line:#34454e;--teal:#87d9c9;--red:#ff9eaa;--accent:#c6f66a}
+[data-theme=dark] button,[data-theme=dark] .app-header,[data-theme=dark] .card,[data-theme=dark] .panel,[data-theme=dark] dialog{background:#1a2830}
+[data-theme=dark] button:hover{background:#2a3d47}
+[data-theme=dark] input,[data-theme=dark] select,[data-theme=dark] textarea{background:#132129;border-color:#536873;color:var(--ink)}
+[data-theme=dark] input::placeholder,[data-theme=dark] textarea::placeholder{color:#9bb0ba}
+[data-theme=dark] input[type=checkbox]{accent-color:#87d9c9}
+[data-theme=dark] .primary{background:#b9ed79;border-color:#b9ed79;color:#14251d}
+[data-theme=dark] .primary:hover{background:#cdf49f}
+[data-theme=dark] .accent,[data-theme=dark] .focus button{background:var(--accent);border-color:var(--accent);color:#15343c}
+[data-theme=dark] .quiet{background:transparent}
+[data-theme=dark] .app-nav .active,[data-theme=dark] .notice,[data-theme=dark] .pill,[data-theme=dark] .plan-metric,[data-theme=dark] .biometric-entry{background:#253e3d;color:var(--ink)}
+[data-theme=dark] .warning,[data-theme=dark] .badge-review,[data-theme=dark] .demo-banner{background:#46391f;color:#ffda91}
+[data-theme=dark] .error{background:#472a34;color:#ffb6c0}
+[data-theme=dark] th{background:#22323b}[data-theme=dark] td{border-color:var(--line)}
+[data-theme=dark] .bar{background:#354950}
+[data-theme=dark] .goal-choice:has(input:checked){background:#253e3d;border-color:#87d9c9}
+[data-theme=dark] .plan-tool a{color:var(--teal)}
+[data-theme=dark] .auth-side{background:#123039}
+[data-theme=dark] .insight{box-shadow:0 2px 0 #0003}
+[data-theme=dark] .spending-pie path,[data-theme=dark] .spending-pie circle{stroke:#1a2830}
+[data-theme=dark] button:focus-visible,[data-theme=dark] a:focus-visible{outline-color:#c6f66a}
+[data-theme=dark] dialog::backdrop{background:#03090dcc}
