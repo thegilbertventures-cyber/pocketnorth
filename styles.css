@@ -71,3 +71,5 @@ dialog{overflow-y:auto;overscroll-behavior:contain;max-height:calc(100dvh - 32px
 [data-theme=dark] .spending-pie path,[data-theme=dark] .spending-pie circle{stroke:#1a2830}
 [data-theme=dark] button:focus-visible,[data-theme=dark] a:focus-visible{outline-color:#c6f66a}
 [data-theme=dark] dialog::backdrop{background:#03090dcc}
+
+.dashboard-card{text-align:left;width:100%;font-weight:400;cursor:pointer;transition:border-color .15s,box-shadow .15s}.dashboard-card:hover,.dashboard-card:focus-visible{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal);outline:none}.card-link{display:block;margin-top:14px;font-size:13px;color:var(--teal);font-weight:650}
