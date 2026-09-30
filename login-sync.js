@@ -10,7 +10,7 @@ export function createLoginSync(){
       const current=()=>generation===ticket;
       notify('Syncing bank accounts…');
       inFlight=(async()=>{
-        try{await run(current);if(current())notify('Bank sync complete');}
+        try{const result=await run(current);if(current())notify(result?.message||'Bank sync complete');}
         catch{if(current())notify('Bank sync incomplete — retry in Accounts');}
         finally{if(current())inFlight=null;}
       })();
